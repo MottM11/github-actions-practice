@@ -6,21 +6,22 @@ on:
       - main
 
 jobs:
-  check-files:
+  simple-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check if README changed
+      - name: Say Hello with conditional
         run: |
-          if git diff HEAD~1 HEAD --name-only | grep -q "README.md"; then
-            echo "📖 README.md が変更されました！"
+          echo "🚀 このワークフローが実行されました！"
+          if [ -f "README.md" ]; then
+            echo "✅ README.md が存在します"
           else
-            echo "📄 README.md は変更されていません"
+            echo "❌ README.md がありません"
           fi
 
-      - name: List changed files
+      - name: List all files
         run: |
-          echo "🔍 変更されたファイル："
-          git diff HEAD~1 HEAD --name-only
+          echo "📋 リポジトリ内のファイル："
+          ls -la
